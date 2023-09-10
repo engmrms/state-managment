@@ -3,7 +3,7 @@ const Navbar = () => {
     <div>
       <ul>
         <li>
-          <a href="/context">Context</a>
+          <a href="/">Context</a>
         </li>
         <li>
           <a href="/zustand">Zustand</a>
