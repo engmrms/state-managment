@@ -1,8 +1,15 @@
 import { StackDivider, VStack } from "@chakra-ui/react";
-import { useToDo } from "../../Context/todo";
+
+import { Task } from "../../types";
 import TasksListComponent from "./TasksListComponent";
-function TodoListComponent() {
-  const { tasks } = useToDo();
+
+interface Props {
+  tasks: Task[];
+  onToggle: (task: Task) => void;
+  onDelete: (id: string) => void;
+}
+
+function TodoListComponent({ tasks, onToggle, onDelete }: Props) {
   return (
     <>
       <VStack
@@ -14,8 +21,8 @@ function TodoListComponent() {
         w="100%"
         maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "30vw" }}
         alignItems="stretch">
-        {tasks.map(task => (
-          <TasksListComponent task={task} />
+        {tasks?.map(task => (
+          <TasksListComponent key={task.id} task={task} onToggle={onToggle} onDelete={onDelete} />
         ))}
       </VStack>
     </>

@@ -1,17 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, HStack, Input, useToast } from "@chakra-ui/react";
-import { useRef } from "react";
-import { useToDo } from "../../Context/todo";
+import { useRef, useState } from "react";
+interface Props {
+  onAdd: (description: string) => void;
+}
 
-function AddTaskComponent() {
+function AddTaskComponent({ onAdd }: Props) {
   const toast = useToast();
-  const { dispatch } = useToDo();
+  const [isDisabled, setIsDisabled] = useState(true);
   const ref = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!ref.current?.value) return;
-    dispatch({ type: "ADD_TASK", payload: { description: ref.current?.value } });
+    onAdd(ref.current.value);
     toast({
       title: "Added Successfuly",
       position: "top",
@@ -20,13 +23,22 @@ function AddTaskComponent() {
       isClosable: true,
     });
     ref.current.value = "";
+    setIsDisabled(true);
   };
-
+  console.log("AddTaskComponent render");
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <HStack mt="4" mb="4">
-        <Input ref={ref} h="46" variant="filled" placeholder="Digite sua tarefa" />
-        <Button colorScheme="blue" px="8" pl="10" pr="10" h="46" type="submit">
+        <Input
+          ref={ref}
+          h="46"
+          variant="outline"
+          placeholder="New Task"
+          onChange={e => {
+            setIsDisabled(!e.target.value);
+          }}
+        />
+        <Button colorScheme="blue" px="8" pl="10" pr="10" h="46" type="submit" isDisabled={isDisabled}>
           Add new task
         </Button>
       </HStack>

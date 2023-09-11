@@ -1,9 +1,9 @@
 import type { RouteObject } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
-import Context from "./Components/Context";
-import Redux from "./Components/Redux";
-import Zustand from "./Components/Zustand";
+import Context from "./Pages/Context";
+import Redux from "./Pages/Redux";
+import Zustand from "./Pages/Zustand";
 
 const router: RouteObject[] = [
   {

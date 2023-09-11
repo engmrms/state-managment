@@ -13,7 +13,7 @@ export const ToDoProvider = ({ children }: { children: ReactNode }) => {
       case "UPDATE_TASK":
         return state.map(st => (st.id === action.payload.id ? action.payload : st));
       case "DELETE_TASK":
-        return state.filter(st => st.id === action.payload);
+        return state.filter(st => st.id !== action.payload);
       default:
         return state;
     }
